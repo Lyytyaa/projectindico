@@ -2,7 +2,7 @@ const { test, expect } = require('../fixtures/baseTest');
 const CONSTANTS = require('../utils/constants');
 
 test.describe('SauceDemo Product Catalog & Sort Verification', () => {
-  test('TC-UI-08: Should find Sauce Labs Onesie in product catalog and sort by Price (low to high)', async ({
+  test('TC-UI-10: Should find Sauce Labs Onesie in product catalog and sort by Price (low to high)', async ({
     authenticatedPage,
     homePage,
   }) => {

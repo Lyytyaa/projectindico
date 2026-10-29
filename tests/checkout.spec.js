@@ -42,17 +42,63 @@ test.describe('Task 3 - SauceDemo E2E Checkout Flow', () => {
     });
   });
 
-  test('TC-UI-07: Should show validation error when submitting empty checkout information', async ({
+  test('TC-UI-07: Should show validation error when First Name is empty during checkout', async ({
     authenticatedPage,
     homePage,
     checkoutPage,
   }) => {
+    const customer = users.checkoutCustomer;
     await homePage.addProductToCart(CONSTANTS.PRODUCTS.SAUCE_LABS_ONESIE);
     await homePage.goToCart();
     await checkoutPage.proceedToCheckout();
-    await checkoutPage.fillCustomerInformation('', '', '');
+    await checkoutPage.fillCustomerInformation(
+      '',
+      customer.lastName,
+      customer.postalCode
+    );
+    await expect(checkoutPage.errorMessage).toBeVisible();
     await expect(checkoutPage.errorMessage).toContainText(
-      'Error: First Name is required'
+      CONSTANTS.MESSAGES.CHECKOUT_FIRST_NAME_REQUIRED
+    );
+  });
+
+  test('TC-UI-08: Should show validation error when Last Name is empty during checkout', async ({
+    authenticatedPage,
+    homePage,
+    checkoutPage,
+  }) => {
+    const customer = users.checkoutCustomer;
+    await homePage.addProductToCart(CONSTANTS.PRODUCTS.SAUCE_LABS_ONESIE);
+    await homePage.goToCart();
+    await checkoutPage.proceedToCheckout();
+    await checkoutPage.fillCustomerInformation(
+      customer.firstName,
+      '',
+      customer.postalCode
+    );
+    await expect(checkoutPage.errorMessage).toBeVisible();
+    await expect(checkoutPage.errorMessage).toContainText(
+      CONSTANTS.MESSAGES.CHECKOUT_LAST_NAME_REQUIRED
+    );
+  });
+
+  test('TC-UI-09: Should show validation error when Postal Code is empty during checkout', async ({
+    authenticatedPage,
+    homePage,
+    checkoutPage,
+  }) => {
+    const customer = users.checkoutCustomer;
+    await homePage.addProductToCart(CONSTANTS.PRODUCTS.SAUCE_LABS_ONESIE);
+    await homePage.goToCart();
+    await checkoutPage.proceedToCheckout();
+    await checkoutPage.fillCustomerInformation(
+      customer.firstName,
+      customer.lastName,
+      ''
+    );
+    await expect(checkoutPage.errorMessage).toBeVisible();
+    await expect(checkoutPage.errorMessage).toContainText(
+      CONSTANTS.MESSAGES.CHECKOUT_POSTAL_CODE_REQUIRED
     );
   });
 });

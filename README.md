@@ -23,10 +23,10 @@ Struktur project ini dirancang menggunakan pendekatan **Page Object Model (POM)*
 ```text
 playwright-framework/
 ├── tests/
-│   ├── login.spec.js             # Task 3: UI Automation - Login scenarios
-│   ├── checkout.spec.js          # Task 3: UI Automation - E2E Checkout Flow ('Sauce Labs Onesie')
-│   ├── search.spec.js            # Task 3: UI Automation - Product catalog & sorting verification
-│   └── petstore.api.spec.js      # Task 2: API Automation - POST /pet, GET /pet/findByStatus, DELETE /pet/{petId}
+│   ├── login.spec.js             # Task 3: UI Automation - Login scenarios (TC-UI-01 s/d TC-UI-05)
+│   ├── checkout.spec.js          # Task 3: UI Automation - E2E Checkout 'Sauce Labs Onesie' & Negative tests (TC-UI-06 s/d TC-UI-09)
+│   ├── search.spec.js            # Task 3: UI Automation - Product catalog & sorting verification (TC-UI-10)
+│   └── petstore.api.spec.js      # Task 2: API Automation - POST /pet, GET /pet/findByStatus, DELETE /pet/{petId} (TC-API-01 s/d TC-API-10)
 ├── pages/
 │   ├── LoginPage.js              # Page Object Model untuk halaman Login
 │   ├── HomePage.js               # Page Object Model untuk halaman Inventory/Home
@@ -36,7 +36,8 @@ playwright-framework/
 ├── utils/
 │   ├── constants.js              # Konstanta aplikasi (URL regex, pesan error/sukses, status enum)
 │   ├── testData.js               # Helper & generator payload data uji
-│   └── helpers.js                # Fungsi utilitas (screenshot helper & PetstoreApiHelper)
+│   ├── helpers.js                # Fungsi utilitas (screenshot helper & PetstoreApiHelper)
+│   └── markdownReporter.js       # Custom Playwright reporter untuk auto-generate Automation_Test_Report.md
 ├── locators/
 │   ├── loginLocators.js          # Centralized locators untuk halaman Login
 │   ├── homeLocators.js           # Centralized locators untuk halaman Home/Inventory
@@ -48,7 +49,7 @@ playwright-framework/
 ├── reports/
 │   ├── html-report/              # Playwright interactive HTML report
 │   ├── test-results.json         # Hasil eksekusi test dalam format JSON
-│   └── Automation_Test_Report.md # Ringkasan laporan hasil eksekusi automasi
+│   └── Automation_Test_Report.md # Ringkasan laporan hasil eksekusi automasi (Auto-generated)
 ├── screenshots/                  # Bukti tangkapan layar (screenshots) eksekusi UI & ketika terjadi kegagalan
 ├── Task_1_docs/
 │   └── Task1_Manual_API_Test_and_Bug_Report.xlsx # Task 1 Manual API Test & Bug Report (3 Sheets)
@@ -56,6 +57,22 @@ playwright-framework/
 ├── package.json                  # Dependencies dan npm scripts
 └── README.md                     # Dokumentasi panduan penggunaan project
 ```
+
+---
+
+## Cakupan Skenario Automasi (20 Test Cases)
+
+### Task 2 – API Automation (`tests/petstore.api.spec.js` – 10 Tests)
+- **`TC-API-01` & `TC-API-02` (`POST /pet`):** Menambahkan pet baru dengan payload valid (`available` & `pending`).
+- **`TC-API-03` s/d `TC-API-05` (`GET /pet/findByStatus`):** Mencari daftar pet berdasarkan status `available`, `pending`, dan `sold`.
+- **`TC-API-06` & `TC-API-07` (`DELETE /pet/{petId}`):** Menghapus pet berdasarkan ID & memverifikasi response `404` pada ID yang sudah terhapus / tidak ditemukan.
+- **`TC-API-08` s/d `TC-API-10` (Verifikasi Bug / Mismatch Dokumentasi Swagger):** Memverifikasi perilaku aktual server pada status invalid (`BUG-01`), payload kosong `{}` (`BUG-02`), dan `petId` non-numerik (`BUG-03`).
+
+### Task 3 – UI Automation (`tests/login.spec.js`, `tests/checkout.spec.js`, `tests/search.spec.js` – 10 Tests)
+- **`TC-UI-01` s/d `TC-UI-05` (Login):** Login positif (`standard_user`) serta skenario negatif (`locked_out_user`, kredensial salah, username kosong, password kosong).
+- **`TC-UI-06` (E2E Checkout Flow – Positif):** Login → Tambah item `'Sauce Labs Onesie'` ke Cart → Buka Cart → Isi informasi Checkout → Selesaikan pesanan & verifikasi pesan `Thank you for your order!`.
+- **`TC-UI-07` s/d `TC-UI-09` (Checkout – Negatif):** Validasi error saat mengosongkan *First Name* (`TC-UI-07`), *Last Name* (`TC-UI-08`), dan *Postal Code* (`TC-UI-09`).
+- **`TC-UI-10` (Product Catalog & Sort):** Memastikan item `'Sauce Labs Onesie'` tersedia di katalog dan terurut paling atas pada filter harga terendah (*Price low to high*).
 
 ---
 
