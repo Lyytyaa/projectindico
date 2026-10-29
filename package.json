@@ -1,0 +1,27 @@
+{
+  "name": "playwright-framework",
+  "version": "1.0.0",
+  "description": "QA Take Home Test - API (Petstore Swagger) & UI (SauceDemo) Automation Framework using Playwright",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test tests/login.spec.js tests/checkout.spec.js",
+    "test:api": "npx playwright test tests/petstore.api.spec.js",
+    "test:headed": "npx playwright test --headed",
+    "report": "npx playwright show-report reports/html-report"
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "qa",
+    "saucedemo",
+    "petstore",
+    "pom"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "dotenv": "^16.4.7"
+  }
+}
+

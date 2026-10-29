@@ -1,0 +1,4 @@
+node_modules/
+.env
+reports/test-artifacts/
+\[QA\] - Take Home Test.pdf
