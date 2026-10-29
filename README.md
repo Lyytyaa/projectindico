@@ -45,7 +45,7 @@ playwright-framework/
 ├── config/
 │   └── env.js                    # Konfigurasi environment (Base URL UI & API, timeout, headless)
 ├── test-data/
-│   └── users.json                # External test data (kredensial user SauceDemo & data customer checkout)
+│   └── users.json                # External test data (akun demo publik SauceDemo & data customer checkout)
 ├── reports/
 │   ├── html-report/              # Playwright interactive HTML report
 │   ├── test-results.json         # Hasil eksekusi test dalam format JSON
@@ -57,6 +57,8 @@ playwright-framework/
 ├── package.json                  # Dependencies dan npm scripts
 └── README.md                     # Dokumentasi panduan penggunaan project
 ```
+
+> **Catatan Keamanan Data Uji (Security & Test Data Note):** Kredensial login pada [`test-data/users.json`](./test-data/users.json) ditempatkan langsung pada file data uji eksternal karena merupakan akun *public demo/sandbox* bawaan SauceDemo (tidak bersifat sensitif), sehingga memudahkan proses eksekusi test secara langsung (*out-of-the-box*) saat di-clone. Untuk proyek nyata (*production/staging*) dengan kredensial sensitif, framework ini telah menyiapkan pengelolaan melalui file `.env` pada [`config/env.js`](./config/env.js) yang sudah di-ignore di dalam [`.gitignore`](./.gitignore).
 
 ---
 
